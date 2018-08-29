@@ -1,4 +1,4 @@
-package com.gnjb.fitly.service;
+package core.service;
 
 import java.util.List;
 
@@ -7,11 +7,9 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.gnjb.fitly.model.product.Program;
-import com.gnjb.fitly.model.product.ProgramRepository;
-
+import core.model.product.Program;
+import core.model.product.ProgramRepository;
 import core.repository.AbstractRepository;
-import core.service.AbstractService;
 
 @Service
 @Transactional

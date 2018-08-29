@@ -1,4 +1,4 @@
-package com.gnjb.fitly.controller;
+package core.controller;
 
 import java.util.List;
 
@@ -11,10 +11,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.gnjb.fitly.dto.ProgramData;
-import com.gnjb.fitly.mapper.ProgramMapper;
-import com.gnjb.fitly.model.product.Program;
-import com.gnjb.fitly.service.ProgramService;
+import core.dto.ProgramData;
+import core.mapper.ProgramMapper;
+import core.model.product.Program;
+import core.service.ProgramService;
 
 @CrossOrigin
 @RestController

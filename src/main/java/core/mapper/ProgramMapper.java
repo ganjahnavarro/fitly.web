@@ -1,4 +1,4 @@
-package com.gnjb.fitly.mapper;
+package core.mapper;
 
 import java.util.List;
 
@@ -8,8 +8,8 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
 
-import com.gnjb.fitly.dto.ProgramData;
-import com.gnjb.fitly.model.product.Program;
+import core.dto.ProgramData;
+import core.model.product.Program;
 
 @Mapper
 public interface ProgramMapper {

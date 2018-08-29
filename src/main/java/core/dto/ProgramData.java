@@ -1,10 +1,8 @@
-package com.gnjb.fitly.dto;
+package core.dto;
 
 import java.math.BigDecimal;
 
-import core.dto.RecordData;
-
-public class ProgramData extends RecordData {
+public class ProgramData extends ProductData {
 
 	private BigDecimal guestPrice;
 	private BigDecimal memberPrice;

@@ -1,7 +1,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>com.gnjb.fitly</groupId>
+	<groupId>core</groupId>
 	<artifactId>fitly.web</artifactId>
 	<version>0.0.1</version>
 	
@@ -22,7 +22,7 @@
 		</dependency>
 		
 		<dependency>
-			<groupId>com.gnjb.fitly</groupId>
+			<groupId>core</groupId>
 			<artifactId>fitly.model</artifactId>
 			<version>${model.version}</version>
 		</dependency>
@@ -196,7 +196,7 @@
 						<configuration>
 							<tasks>
 								<copy file="${basedir}/target/fitly.war"
-									todir="D:/Program Files/Wildfly 10.1.0.Final/standalone/deployments/" />
+									todir="C:/wildfly-10.1.0.Final/standalone/deployments/" />
 							</tasks>
 						</configuration>
 						<goals>
