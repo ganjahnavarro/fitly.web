@@ -21,7 +21,7 @@ public interface MemberMapper {
 	MemberData toData(Member member);
 	
 	@IterableMapping(dateFormat = "MM/dd/yyyy HH:mm")
-	List<MemberData> toData(List<Member> memberes);
+	List<MemberData> toData(List<Member> members);
 	
 	@InheritInverseConfiguration
 	Member fromData(MemberData memberData);
