@@ -4,7 +4,7 @@
 	<groupId>core</groupId>
 	<artifactId>fitly.web</artifactId>
 	<version>0.0.1</version>
-	
+
 	<properties>
 		<springframework.version>4.2.4.RELEASE</springframework.version>
 		<hibernate.version>4.3.6.Final</hibernate.version>
@@ -20,7 +20,7 @@
 			<artifactId>core.base</artifactId>
 			<version>${core.version}</version>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>core</groupId>
 			<artifactId>fitly.model</artifactId>
@@ -112,6 +112,12 @@
 			<groupId>commons-beanutils</groupId>
 			<artifactId>commons-beanutils</artifactId>
 			<version>1.8.3</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>commons-validator</groupId>
+			<artifactId>commons-validator</artifactId>
+			<version>1.6</version>
 		</dependency>
 
 		<!-- File Upload -->
