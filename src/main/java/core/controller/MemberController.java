@@ -37,14 +37,16 @@ public class MemberController {
 
 	@RequestMapping(value = "/", method = RequestMethod.POST)
 	public MemberData create(@RequestBody MemberData memberData) {
-		validateMemberData(memberData);
+		validate(memberData);
+
 		Member member = MAPPER.fromData(memberData);
 		return MAPPER.toData((Member) memberService.save(member));
 	}
 
 	@RequestMapping(value = "/", method = RequestMethod.PATCH)
 	public MemberData update(@RequestBody MemberData memberData) {
-		validateMemberData(memberData);
+		validate(memberData);
+
 		Member member = MAPPER.fromData(memberData);
 		return MAPPER.toData((Member) memberService.update(member));
 	}
@@ -54,9 +56,11 @@ public class MemberController {
 		memberService.deleteRecordById(id);
 	}
 	
-	private void validateMemberData(MemberData memberData) {
-		validator.validateEmailAddress(memberData.getEmail());
-		validator.validateDate(memberData.getBirthDate(), "Birth date format should be MM/dd/yyyy.");
+	private void validate(MemberData memberData) {
+		Runnable validateEmail = () -> validator.validateEmailAddress(memberData.getEmail());
+		Runnable validateBirthDate = () -> validator.validateDate(memberData.getBirthDate(), "Invalid birth date format.");
+
+		validator.aggregate(validateEmail, validateBirthDate);
 	}
 
 }

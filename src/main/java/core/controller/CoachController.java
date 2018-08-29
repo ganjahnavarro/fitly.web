@@ -37,14 +37,16 @@ public class CoachController {
 
 	@RequestMapping(value = "/", method = RequestMethod.POST)
 	public CoachData create(@RequestBody CoachData coachData) {
-		validateCoachData(coachData);
+		validate(coachData);
+
 		Coach coach = MAPPER.fromData(coachData);
 		return MAPPER.toData((Coach) coachService.save(coach));
 	}
 
 	@RequestMapping(value = "/", method = RequestMethod.PATCH)
 	public CoachData update(@RequestBody CoachData coachData) {
-		validateCoachData(coachData);
+		validate(coachData);
+
 		Coach coach = MAPPER.fromData(coachData);
 		return MAPPER.toData((Coach) coachService.update(coach));
 	}
@@ -54,9 +56,11 @@ public class CoachController {
 		coachService.deleteRecordById(id);
 	}
 	
-	private void validateCoachData(CoachData coachData) {
-		validator.validateEmailAddress(coachData.getEmail());
-		validator.validateDate(coachData.getBirthDate(), "Birth date format should be MM/dd/yyyy.");
+	private void validate(CoachData coachData) {
+		Runnable validateEmail = () -> validator.validateEmailAddress(coachData.getEmail());
+		Runnable validateBirthDate = () -> validator.validateDate(coachData.getBirthDate(), "Invalid birth date format.");
+
+		validator.aggregate(validateEmail, validateBirthDate);
 	}
 
 }
