@@ -11,10 +11,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import core.model.pkg.Package;
 import core.dto.PackageData;
 import core.enums.Duration;
 import core.mapper.PackageMapper;
-import core.model.product.Package;
 import core.service.PackageService;
 
 @CrossOrigin

@@ -9,7 +9,7 @@ import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
 
 import core.dto.ProgramData;
-import core.model.product.Program;
+import core.model.program.Program;
 
 @Mapper
 public interface ProgramMapper {

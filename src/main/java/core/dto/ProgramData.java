@@ -2,7 +2,10 @@ package core.dto;
 
 import java.math.BigDecimal;
 
-public class ProgramData extends ProductData {
+public class ProgramData extends RecordData {
+
+	private String name;
+	private String description;
 
 	private BigDecimal guestPrice;
 	private BigDecimal memberPrice;
@@ -11,6 +14,22 @@ public class ProgramData extends ProductData {
 	private Boolean hasCoach;
 	private BigDecimal coachPrice;
 	private Boolean active;
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
 
 	public BigDecimal getGuestPrice() {
 		return guestPrice;

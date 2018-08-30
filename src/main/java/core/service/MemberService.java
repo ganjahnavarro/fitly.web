@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import core.Constants;
+import core.enums.MemberType;
 import core.model.Config;
 import core.model.IRecord;
 import core.model.member.Member;
@@ -33,12 +34,16 @@ public class MemberService extends AbstractService {
 	@Override
 	public IRecord save(IRecord record) {
 		Member member = (Member) super.save(record);
-		super.save(createMembership(member));
+		
+		if (member.getType().equals(MemberType.REGULAR)) {
+			super.save(createMembership(member));
+		}
+
 		return member;
 	}
 	
-	public List<Member> findFilteredItems(String orderBy, Integer pageSize, Integer pageOffset, String filter) {
-		return repository.findFilteredItems(orderBy, pageSize, pageOffset, filter);
+	public List<Member> findFilteredItems(MemberType type, String filter, Integer pageSize, Integer pageOffset, String orderBy) {
+		return repository.findFilteredItems(type, filter, pageSize, pageOffset, orderBy);
 	}
 	
 	private Membership createMembership(Member member) {

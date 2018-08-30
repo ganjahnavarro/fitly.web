@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import core.Validator;
 import core.dto.MemberData;
+import core.enums.MemberType;
 import core.mapper.MemberMapper;
 import core.model.member.Member;
 import core.service.MemberService;
@@ -31,8 +32,10 @@ public class MemberController {
 	public List<MemberData> list(@RequestParam(value = "filter", required = false) String filter,
 			@RequestParam(value = "pageSize", required = false) Integer pageSize,
 			@RequestParam(value = "pageOffset", required = false) Integer pageOffset,
-			@RequestParam(value = "orderedBy", required = false) String orderedBy) {
-		return MAPPER.toData(memberService.findFilteredItems(filter, pageSize, pageOffset, orderedBy));
+			@RequestParam(value = "orderedBy", required = false) String orderedBy,
+			@RequestParam(value = "type", required = false) String type) {
+		MemberType memberType =  MemberType.fromString(type);
+		return MAPPER.toData(memberService.findFilteredItems(memberType, filter, pageSize, pageOffset, orderedBy));
 	}
 
 	@RequestMapping(value = "/", method = RequestMethod.POST)
@@ -62,5 +65,5 @@ public class MemberController {
 
 		validator.aggregate(validateEmail, validateBirthDate);
 	}
-
+	
 }

@@ -7,8 +7,8 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import core.model.product.Package;
-import core.model.product.PackageRepository;
+import core.model.pkg.Package;
+import core.model.pkg.PackageRepository;
 import core.repository.AbstractRepository;
 
 @Service

@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import core.dto.ProgramData;
 import core.mapper.ProgramMapper;
-import core.model.product.Program;
+import core.model.program.Program;
 import core.service.ProgramService;
 
 @CrossOrigin

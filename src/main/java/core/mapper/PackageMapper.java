@@ -9,7 +9,7 @@ import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
 
 import core.dto.PackageData;
-import core.model.product.Package;
+import core.model.pkg.Package;
 
 @Mapper
 public interface PackageMapper {

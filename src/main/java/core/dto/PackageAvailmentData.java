@@ -4,30 +4,39 @@ import java.math.BigDecimal;
 
 import core.enums.Duration;
 
-public class PackageData extends RecordData {
+public class PackageAvailmentData extends RecordData {
 
-	private String name;
-	private String description;
+	private MemberData member;
+	private PackageData availedPackage;
+	private String date;
 
 	private Duration duration;
 	private Integer durationCount;
 	private Integer sessionsCount;
 	private BigDecimal price;
 
-	public String getName() {
-		return name;
+	public MemberData getMember() {
+		return member;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setMember(MemberData member) {
+		this.member = member;
 	}
 
-	public String getDescription() {
-		return description;
+	public PackageData getAvailedPackage() {
+		return availedPackage;
 	}
 
-	public void setDescription(String description) {
-		this.description = description;
+	public void setAvailedPackage(PackageData availedPackage) {
+		this.availedPackage = availedPackage;
+	}
+
+	public String getDate() {
+		return date;
+	}
+
+	public void setDate(String date) {
+		this.date = date;
 	}
 
 	public Duration getDuration() {
