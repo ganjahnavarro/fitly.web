@@ -1,7 +1,10 @@
 package core.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -24,6 +27,11 @@ public class PackageAvailmentController {
 	@Autowired private MemberService memberService;
 
 	private PackageAvailmentMapper MAPPER = PackageAvailmentMapper.INSTANCE;
+	
+	@RequestMapping(value = "/{memberId}", method = RequestMethod.GET)
+	public List<PackageAvailmentData> get(@PathVariable Long memberId) {
+		return MAPPER.toData(packageService.findMemberPackageAvailments(memberId));
+	}
 	
 	@RequestMapping(value = "/", method = RequestMethod.POST)
 	public PackageAvailmentData create(@RequestBody PackageAvailmentData packageAvailmentData) {

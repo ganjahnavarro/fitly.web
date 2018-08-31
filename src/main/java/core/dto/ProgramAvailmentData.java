@@ -1,7 +1,6 @@
 package core.dto;
 
 import java.math.BigDecimal;
-import java.util.Date;
 
 import core.enums.AvailmentType;
 
@@ -9,7 +8,7 @@ public class ProgramAvailmentData extends RecordData {
 
 	private MemberData member;
 	private ProgramData availedProgram;
-	private Date date;
+	private String date;
 
 	private AvailmentType type;
 	private BigDecimal price;
@@ -30,20 +29,12 @@ public class ProgramAvailmentData extends RecordData {
 		this.availedProgram = availedProgram;
 	}
 
-	public Date getDate() {
+	public String getDate() {
 		return date;
 	}
 
-	public void setDate(Date date) {
+	public void setDate(String date) {
 		this.date = date;
-	}
-
-	public AvailmentType getType() {
-		return type;
-	}
-
-	public void setType(AvailmentType type) {
-		this.type = type;
 	}
 
 	public BigDecimal getPrice() {
@@ -52,6 +43,14 @@ public class ProgramAvailmentData extends RecordData {
 
 	public void setPrice(BigDecimal price) {
 		this.price = price;
+	}
+
+	public void setType(AvailmentType type) {
+		this.type = type;
+	}
+
+	public AvailmentType getType() {
+		return type;
 	}
 
 }

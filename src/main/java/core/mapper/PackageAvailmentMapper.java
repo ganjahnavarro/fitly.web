@@ -17,7 +17,7 @@ public interface PackageAvailmentMapper {
 	PackageAvailmentMapper INSTANCE = Mappers.getMapper(PackageAvailmentMapper.class);
 
 	@Mapping(target = "modifiedDate", source = "modifiedDate", dateFormat = "MM/dd/yyyy HH:mm")
-	@Mapping(target = "date", source = "date", dateFormat = "MM/dd/yyyy HH:mm")
+	@Mapping(target = "date", source = "date", dateFormat = "MM/dd/yyyy")
 	PackageAvailmentData toData(PackageAvailment packageAvailment);
 	
 	@IterableMapping(dateFormat = "MM/dd/yyyy HH:mm")

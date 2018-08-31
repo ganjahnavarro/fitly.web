@@ -1,7 +1,10 @@
 package core.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -24,6 +27,11 @@ public class ProgramAvailmentController {
 	@Autowired private MemberService memberService;
 
 	private ProgramAvailmentMapper MAPPER = ProgramAvailmentMapper.INSTANCE;
+	
+	@RequestMapping(value = "/{memberId}", method = RequestMethod.GET)
+	public List<ProgramAvailmentData> get(@PathVariable Long memberId) {
+		return MAPPER.toData(programService.findMemberProgramAvailments(memberId));
+	}
 	
 	@RequestMapping(value = "/", method = RequestMethod.POST)
 	public ProgramAvailmentData create(@RequestBody ProgramAvailmentData programAvailmentData) {
