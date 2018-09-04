@@ -19,11 +19,11 @@ public class ConfigInitializer {
 	}
 	
 	private void setupMembershipAmountConfig() {
-		Config config = configService.findByName(Constants.CONFIG_NAME_MEMBERSHIP_AMOUNT);
+		Config config = configService.findByName(FitlyConstants.CONFIG_NAME_MEMBERSHIP_AMOUNT);
 		if (config == null) {
 			config = new Config();
-			config.setName(Constants.CONFIG_NAME_MEMBERSHIP_AMOUNT);
-			config.setValue(Constants.CONFIG_VALUE_MEMBERSHIP_AMOUNT);
+			config.setName(FitlyConstants.CONFIG_NAME_MEMBERSHIP_AMOUNT);
+			config.setValue(FitlyConstants.CONFIG_VALUE_MEMBERSHIP_AMOUNT);
 			configService.save(config);
 		}
 	}

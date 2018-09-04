@@ -9,7 +9,7 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import core.Constants;
+import core.FitlyConstants;
 import core.enums.MemberType;
 import core.model.Config;
 import core.model.IRecord;
@@ -48,7 +48,7 @@ public class MemberService extends AbstractService {
 	
 	private Membership createMembership(Member member) {
 		Calendar calendar = Calendar.getInstance();
-		Config config = configService.findByName(Constants.CONFIG_NAME_MEMBERSHIP_AMOUNT);
+		Config config = configService.findByName(FitlyConstants.CONFIG_NAME_MEMBERSHIP_AMOUNT);
 		
 		Membership membership = new Membership();
 		membership.setMember(member);
