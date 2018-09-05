@@ -14,6 +14,9 @@ public class PackageData extends RecordData {
 	private Integer sessionsCount;
 	private BigDecimal price;
 
+	private BigDecimal commission;
+	private Boolean active;
+
 	public String getName() {
 		return name;
 	}
@@ -60,6 +63,22 @@ public class PackageData extends RecordData {
 
 	public void setPrice(BigDecimal price) {
 		this.price = price;
+	}
+
+	public BigDecimal getCommission() {
+		return commission;
+	}
+
+	public void setCommission(BigDecimal commission) {
+		this.commission = commission;
+	}
+
+	public Boolean getActive() {
+		return active;
+	}
+
+	public void setActive(Boolean active) {
+		this.active = active;
 	}
 
 }

@@ -7,15 +7,15 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import core.model.program.Program;
-import core.model.program.ProgramRepository;
+import core.model.pkg.PackageAvailment;
+import core.model.pkg.PackageAvailmentRepository;
 import core.repository.AbstractRepository;
 
 @Service
 @Transactional
-public class ProgramService extends AbstractService {
+public class PackageAvailmentService extends AbstractService {
 	
-	@Autowired private ProgramRepository repository;
+	@Autowired private PackageAvailmentRepository repository;
 
 	@SuppressWarnings("rawtypes")
 	@Override
@@ -23,8 +23,8 @@ public class ProgramService extends AbstractService {
 		return repository;
 	}
 	
-	public List<Program> findFilteredItems(String orderBy, Integer pageSize, Integer pageOffset, String filter) {
-		return repository.findFilteredItems(orderBy, pageSize, pageOffset, filter);
+	public List<PackageAvailment> findMemberPackageAvailments(Long memberId) {
+		return repository.findMemberPackageAvailments(memberId);
 	}
 
 }

@@ -16,12 +16,13 @@ import core.dto.MemberData;
 import core.enums.MemberType;
 import core.mapper.MemberMapper;
 import core.model.member.Member;
+import core.service.AbstractService;
 import core.service.MemberService;
 
 @CrossOrigin
 @RestController
 @RequestMapping("/member")
-public class MemberController {
+public class MemberController extends AbstractController {
 
 	@Autowired private MemberService memberService;
 	@Autowired private Validator validator;
@@ -56,7 +57,7 @@ public class MemberController {
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
 	public void delete(@PathVariable Long id) {
-		memberService.deleteRecordById(id);
+		super.delete(id);
 	}
 	
 	private void validate(MemberData memberData) {
@@ -64,6 +65,11 @@ public class MemberController {
 		Runnable validateBirthDate = () -> validator.validateDate(memberData.getBirthDate(), "Invalid birth date format.");
 
 		validator.aggregate(validateEmail, validateBirthDate);
+	}
+
+	@Override
+	protected AbstractService getService() {
+		return memberService;
 	}
 	
 }

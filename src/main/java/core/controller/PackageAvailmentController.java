@@ -15,14 +15,18 @@ import core.mapper.PackageAvailmentMapper;
 import core.model.member.Member;
 import core.model.pkg.Package;
 import core.model.pkg.PackageAvailment;
+import core.service.AbstractService;
 import core.service.MemberService;
+import core.service.PackageAvailmentService;
 import core.service.PackageService;
 
 @CrossOrigin
 @RestController
 @RequestMapping("/package/availment")
-public class PackageAvailmentController {
+public class PackageAvailmentController extends AbstractController {
 
+	@Autowired private PackageAvailmentService packageAvailmentService;
+	
 	@Autowired private PackageService packageService;
 	@Autowired private MemberService memberService;
 
@@ -30,7 +34,7 @@ public class PackageAvailmentController {
 	
 	@RequestMapping(value = "/{memberId}", method = RequestMethod.GET)
 	public List<PackageAvailmentData> get(@PathVariable Long memberId) {
-		return MAPPER.toData(packageService.findMemberPackageAvailments(memberId));
+		return MAPPER.toData(packageAvailmentService.findMemberPackageAvailments(memberId));
 	}
 	
 	@RequestMapping(value = "/", method = RequestMethod.POST)
@@ -38,14 +42,19 @@ public class PackageAvailmentController {
 		PackageAvailment packageAvailment = MAPPER.fromData(packageAvailmentData);
 		setDefaultValues(packageAvailment);
 
-		return MAPPER.toData((PackageAvailment) packageService.save(packageAvailment));
+		return MAPPER.toData((PackageAvailment) packageAvailmentService.save(packageAvailment));
 	}
 
 	@RequestMapping(value = "/", method = RequestMethod.PATCH)
 	public PackageAvailmentData update(@RequestBody PackageAvailmentData packageAvailmentData) {
 		PackageAvailment packageAvailment = MAPPER.fromData(packageAvailmentData);
 		setDefaultValues(packageAvailment);
-		return MAPPER.toData((PackageAvailment) packageService.update(packageAvailment));
+		return MAPPER.toData((PackageAvailment) packageAvailmentService.update(packageAvailment));
+	}
+	
+	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+	public void delete(@PathVariable Long id) {
+		super.delete(id);
 	}
 	
 	private void setDefaultValues(PackageAvailment availment) {
@@ -63,6 +72,11 @@ public class PackageAvailmentController {
 			Member member = (Member) memberService.findById(availment.getMember().getId());
 			availment.setMember(member);
 		}
+	}
+	
+	@Override
+	protected AbstractService getService() {
+		return packageAvailmentService;
 	}
 
 }

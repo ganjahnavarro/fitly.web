@@ -13,6 +13,8 @@ public class ProgramData extends RecordData {
 
 	private Boolean hasCoach;
 	private BigDecimal coachPrice;
+
+	private BigDecimal commission;
 	private Boolean active;
 
 	public String getName() {
@@ -77,6 +79,14 @@ public class ProgramData extends RecordData {
 
 	public void setActive(Boolean active) {
 		this.active = active;
+	}
+
+	public BigDecimal getCommission() {
+		return commission;
+	}
+
+	public void setCommission(BigDecimal commission) {
+		this.commission = commission;
 	}
 
 }

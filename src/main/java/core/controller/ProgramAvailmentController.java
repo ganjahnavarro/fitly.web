@@ -15,14 +15,17 @@ import core.mapper.ProgramAvailmentMapper;
 import core.model.member.Member;
 import core.model.program.Program;
 import core.model.program.ProgramAvailment;
+import core.service.AbstractService;
 import core.service.MemberService;
+import core.service.ProgramAvailmentService;
 import core.service.ProgramService;
 
 @CrossOrigin
 @RestController
 @RequestMapping("/program/availment")
-public class ProgramAvailmentController {
+public class ProgramAvailmentController extends AbstractController {
 
+	@Autowired private ProgramAvailmentService programAvailmentService;
 	@Autowired private ProgramService programService;
 	@Autowired private MemberService memberService;
 
@@ -30,7 +33,7 @@ public class ProgramAvailmentController {
 	
 	@RequestMapping(value = "/{memberId}", method = RequestMethod.GET)
 	public List<ProgramAvailmentData> get(@PathVariable Long memberId) {
-		return MAPPER.toData(programService.findMemberProgramAvailments(memberId));
+		return MAPPER.toData(programAvailmentService.findMemberProgramAvailments(memberId));
 	}
 	
 	@RequestMapping(value = "/", method = RequestMethod.POST)
@@ -38,14 +41,19 @@ public class ProgramAvailmentController {
 		ProgramAvailment programAvailment = MAPPER.fromData(programAvailmentData);
 		setDefaultValues(programAvailment);
 
-		return MAPPER.toData((ProgramAvailment) programService.save(programAvailment));
+		return MAPPER.toData((ProgramAvailment) programAvailmentService.save(programAvailment));
 	}
 
 	@RequestMapping(value = "/", method = RequestMethod.PATCH)
 	public ProgramAvailmentData update(@RequestBody ProgramAvailmentData programAvailmentData) {
 		ProgramAvailment programAvailment = MAPPER.fromData(programAvailmentData);
 		setDefaultValues(programAvailment);
-		return MAPPER.toData((ProgramAvailment) programService.update(programAvailment));
+		return MAPPER.toData((ProgramAvailment) programAvailmentService.update(programAvailment));
+	}
+	
+	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+	public void delete(@PathVariable Long id) {
+		super.delete(id);
 	}
 	
 	private void setDefaultValues(ProgramAvailment availment) {
@@ -59,6 +67,11 @@ public class ProgramAvailmentController {
 			Member member = (Member) memberService.findById(availment.getMember().getId());
 			availment.setMember(member);
 		}
+	}
+	
+	@Override
+	protected AbstractService getService() {
+		return programAvailmentService;
 	}
 
 }
