@@ -7,15 +7,15 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import core.model.coach.Coach;
-import core.model.coach.CoachRepository;
+import core.model.timeentry.TimeEntry;
+import core.model.timeentry.TimeEntryRepository;
 import core.repository.AbstractRepository;
 
 @Service
 @Transactional
-public class CoachService extends AbstractService {
+public class TimeEntryService extends AbstractService {
 	
-	@Autowired private CoachRepository repository;
+	@Autowired private TimeEntryRepository repository;
 
 	@SuppressWarnings("rawtypes")
 	@Override
@@ -23,8 +23,8 @@ public class CoachService extends AbstractService {
 		return repository;
 	}
 	
-	public List<Coach> findFilteredItems(String filter, Integer pageSize, Integer pageOffset, String orderBy) {
-		return repository.findFilteredItems(filter, pageSize, pageOffset, orderBy);
+	public List<TimeEntry> findFilteredItems(Integer pageSize, Integer pageOffset, String orderBy) {
+		return repository.findFilteredItems(pageSize, pageOffset, orderBy);
 	}
 
 }

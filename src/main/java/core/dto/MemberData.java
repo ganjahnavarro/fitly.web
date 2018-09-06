@@ -11,6 +11,8 @@ public class MemberData extends PersonData {
 	private BigDecimal width;
 	private BigDecimal height;
 
+	private CoachData defaultCoach;
+
 	public MemberType getType() {
 		return type;
 	}
@@ -33,6 +35,14 @@ public class MemberData extends PersonData {
 
 	public void setHeight(BigDecimal height) {
 		this.height = height;
+	}
+
+	public CoachData getDefaultCoach() {
+		return defaultCoach;
+	}
+
+	public void setDefaultCoach(CoachData defaultCoach) {
+		this.defaultCoach = defaultCoach;
 	}
 
 }

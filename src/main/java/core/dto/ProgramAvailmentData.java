@@ -8,7 +8,9 @@ public class ProgramAvailmentData extends RecordData {
 
 	private MemberData member;
 	private ProgramData availedProgram;
-	private String date;
+
+	private String startDate;
+	private String endDate;
 
 	private AvailmentType type;
 	private BigDecimal price;
@@ -29,12 +31,20 @@ public class ProgramAvailmentData extends RecordData {
 		this.availedProgram = availedProgram;
 	}
 
-	public String getDate() {
-		return date;
+	public String getStartDate() {
+		return startDate;
 	}
 
-	public void setDate(String date) {
-		this.date = date;
+	public void setStartDate(String startDate) {
+		this.startDate = startDate;
+	}
+
+	public String getEndDate() {
+		return endDate;
+	}
+
+	public void setEndDate(String endDate) {
+		this.endDate = endDate;
 	}
 
 	public BigDecimal getPrice() {

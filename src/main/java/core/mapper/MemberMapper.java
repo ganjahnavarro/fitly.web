@@ -11,7 +11,7 @@ import org.mapstruct.factory.Mappers;
 import core.dto.MemberData;
 import core.model.member.Member;
 
-@Mapper
+@Mapper(uses = { CoachMapper.class })
 public interface MemberMapper {
 	
 	MemberMapper INSTANCE = Mappers.getMapper(MemberMapper.class);

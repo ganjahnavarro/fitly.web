@@ -15,8 +15,10 @@ import core.Validator;
 import core.dto.MemberData;
 import core.enums.MemberType;
 import core.mapper.MemberMapper;
+import core.model.coach.Coach;
 import core.model.member.Member;
 import core.service.AbstractService;
+import core.service.CoachService;
 import core.service.MemberService;
 
 @CrossOrigin
@@ -25,6 +27,8 @@ import core.service.MemberService;
 public class MemberController extends AbstractController {
 
 	@Autowired private MemberService memberService;
+	@Autowired private CoachService coachService;
+	
 	@Autowired private Validator validator;
 
 	private MemberMapper MAPPER = MemberMapper.INSTANCE;
@@ -42,16 +46,18 @@ public class MemberController extends AbstractController {
 	@RequestMapping(value = "/", method = RequestMethod.POST)
 	public MemberData create(@RequestBody MemberData memberData) {
 		validate(memberData);
-
 		Member member = MAPPER.fromData(memberData);
+		setDefaultValues(member);
+		
 		return MAPPER.toData((Member) memberService.save(member));
 	}
 
 	@RequestMapping(value = "/", method = RequestMethod.PATCH)
 	public MemberData update(@RequestBody MemberData memberData) {
 		validate(memberData);
-
 		Member member = MAPPER.fromData(memberData);
+		setDefaultValues(member);
+
 		return MAPPER.toData((Member) memberService.update(member));
 	}
 
@@ -65,6 +71,13 @@ public class MemberController extends AbstractController {
 		Runnable validateBirthDate = () -> validator.validateDate(memberData.getBirthDate(), "Invalid birth date format.");
 
 		validator.aggregate(validateEmail, validateBirthDate);
+	}
+	
+	private void setDefaultValues(Member member) {
+		if (member.getDefaultCoach() != null) {
+			Coach defaultCoach = (Coach) coachService.findById(member.getDefaultCoach().getId());
+			member.setDefaultCoach(defaultCoach);
+		}
 	}
 
 	@Override

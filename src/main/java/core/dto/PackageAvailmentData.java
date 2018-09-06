@@ -8,11 +8,16 @@ public class PackageAvailmentData extends RecordData {
 
 	private MemberData member;
 	private PackageData availedPackage;
-	private String date;
+
+	private String startDate;
+	private String endDate;
 
 	private Duration duration;
 	private Integer durationCount;
+	
 	private Integer sessionsCount;
+	private Integer sessionsRemaining;
+	
 	private BigDecimal price;
 
 	public MemberData getMember() {
@@ -31,12 +36,20 @@ public class PackageAvailmentData extends RecordData {
 		this.availedPackage = availedPackage;
 	}
 
-	public String getDate() {
-		return date;
+	public String getStartDate() {
+		return startDate;
 	}
 
-	public void setDate(String date) {
-		this.date = date;
+	public void setStartDate(String startDate) {
+		this.startDate = startDate;
+	}
+
+	public String getEndDate() {
+		return endDate;
+	}
+
+	public void setEndDate(String endDate) {
+		this.endDate = endDate;
 	}
 
 	public Duration getDuration() {
@@ -61,6 +74,14 @@ public class PackageAvailmentData extends RecordData {
 
 	public void setSessionsCount(Integer sessionsCount) {
 		this.sessionsCount = sessionsCount;
+	}
+	
+	public Integer getSessionsRemaining() {
+		return sessionsRemaining;
+	}
+
+	public void setSessionsRemaining(Integer sessionsRemaining) {
+		this.sessionsRemaining = sessionsRemaining;
 	}
 
 	public BigDecimal getPrice() {

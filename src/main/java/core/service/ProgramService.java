@@ -23,8 +23,8 @@ public class ProgramService extends AbstractService {
 		return repository;
 	}
 	
-	public List<Program> findFilteredItems(String orderBy, Integer pageSize, Integer pageOffset, String filter) {
-		return repository.findFilteredItems(orderBy, pageSize, pageOffset, filter);
+	public List<Program> findFilteredItems(String filter, Integer pageSize, Integer pageOffset, String orderBy) {
+		return repository.findFilteredItems(filter, pageSize, pageOffset, orderBy);
 	}
 
 }

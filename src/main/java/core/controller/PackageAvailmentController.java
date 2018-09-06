@@ -1,5 +1,6 @@
 package core.controller;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -65,7 +66,12 @@ public class PackageAvailmentController extends AbstractController {
 			availment.setDuration(availedPackage.getDuration());
 			availment.setDurationCount(availedPackage.getDurationCount());
 			availment.setSessionsCount(availedPackage.getSessionsCount());
+			availment.setSessionsRemaining(availment.getSessionsCount());
 			availment.setPrice(availedPackage.getPrice());
+			
+			Date startDate = availment.getStartDate();
+			Date endDate = availment.getDuration().computeEndDate(startDate, availment.getDurationCount());
+			availment.setEndDate(endDate);
 		}
 		
 		if (availment.getMember() != null) {

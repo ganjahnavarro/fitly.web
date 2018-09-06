@@ -1,5 +1,6 @@
 package core.controller;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,8 +60,11 @@ public class ProgramAvailmentController extends AbstractController {
 	private void setDefaultValues(ProgramAvailment availment) {
 		if (availment.getAvailedProgram() != null) {
 			Program availedProgram = (Program) programService.findById(availment.getAvailedProgram().getId());
-			availment.setPrice(availedProgram.getPrice(availment.getType()));
 			availment.setAvailedProgram(availedProgram);
+
+			Date startDate = availment.getStartDate();
+			availment.setEndDate(availment.getType().getEndDate(startDate));
+			availment.setPrice(availment.getType().getProgramPrice(availedProgram));
 		}
 		
 		if (availment.getMember() != null) {

@@ -62,6 +62,10 @@ public class MemberService extends AbstractService {
 		return membership;
 	}
 	
+	public Member findByAccessCardNo(String accessCardNo) {
+		return repository.findByAccessCardNo(accessCardNo);
+	}
+	
 	public Membership findMembershipByMemberId(Long memberId) {
 		return repository.findMembershipByMemberId(memberId);
 	}

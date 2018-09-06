@@ -1,5 +1,6 @@
 package core.service;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -25,6 +26,10 @@ public class PackageAvailmentService extends AbstractService {
 	
 	public List<PackageAvailment> findMemberPackageAvailments(Long memberId) {
 		return repository.findMemberPackageAvailments(memberId);
+	}
+	
+	public List<PackageAvailment> findAvailablePackageAvailments(Long memberId, Date date) {
+		return repository.findAvailablePackageAvailments(memberId, date);
 	}
 
 }

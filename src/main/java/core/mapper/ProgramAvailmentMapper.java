@@ -17,7 +17,8 @@ public interface ProgramAvailmentMapper {
 	ProgramAvailmentMapper INSTANCE = Mappers.getMapper(ProgramAvailmentMapper.class);
 
 	@Mapping(target = "modifiedDate", source = "modifiedDate", dateFormat = "MM/dd/yyyy HH:mm")
-	@Mapping(target = "date", source = "date", dateFormat = "MM/dd/yyyy")
+	@Mapping(target = "startDate", source = "startDate", dateFormat = "MM/dd/yyyy")
+	@Mapping(target = "endDate", source = "endDate", dateFormat = "MM/dd/yyyy")
 	ProgramAvailmentData toData(ProgramAvailment programAvailment);
 	
 	@IterableMapping(dateFormat = "MM/dd/yyyy HH:mm")
