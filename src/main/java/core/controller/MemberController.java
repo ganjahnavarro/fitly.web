@@ -42,6 +42,12 @@ public class MemberController extends AbstractController {
 		MemberType memberType =  MemberType.fromString(type);
 		return MAPPER.toData(memberService.findFilteredItems(memberType, filter, pageSize, pageOffset, orderedBy));
 	}
+	
+	@RequestMapping(value = "/count", method = RequestMethod.GET)
+	public Long count(@RequestParam(value = "type", required = false) String type) {
+		MemberType memberType =  MemberType.fromString(type);
+		return memberService.findCount(memberType);
+	}
 
 	@RequestMapping(value = "/", method = RequestMethod.POST)
 	public MemberData create(@RequestBody MemberData memberData) {

@@ -69,5 +69,9 @@ public class MemberService extends AbstractService {
 	public Membership findMembershipByMemberId(Long memberId) {
 		return repository.findMembershipByMemberId(memberId);
 	}
+	
+	public Long findCount(MemberType type) {
+		return repository.findCount(type);
+	}
 
 }
