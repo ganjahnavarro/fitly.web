@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import core.model.pkg.PackageAvailment;
 import core.model.pkg.PackageAvailmentRepository;
+import core.model.pkg.PackagePurchaseSummary;
 import core.repository.AbstractRepository;
 
 @Service
@@ -30,6 +31,10 @@ public class PackageAvailmentService extends AbstractService {
 	
 	public List<PackageAvailment> findAvailablePackageAvailments(Long memberId, Date date) {
 		return repository.findAvailablePackageAvailments(memberId, date);
+	}
+	
+	public List<PackagePurchaseSummary> findPackagePurchaseSummaries() {
+		return repository.findPackagePurchaseSummaries();
 	}
 
 }

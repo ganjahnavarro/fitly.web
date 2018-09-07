@@ -9,7 +9,9 @@ import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
 
 import core.dto.ProgramData;
+import core.dto.report.ProgramPurchaseSummaryData;
 import core.model.program.Program;
+import core.model.program.ProgramPurchaseSummary;
 
 @Mapper
 public interface ProgramMapper {
@@ -24,5 +26,9 @@ public interface ProgramMapper {
 	
 	@InheritInverseConfiguration
 	Program fromData(ProgramData programData);
+	
+	ProgramPurchaseSummaryData summaryToData(ProgramPurchaseSummary summary);
 
+	List<ProgramPurchaseSummaryData> summariesToData(List<ProgramPurchaseSummary> summaries);
+	
 }

@@ -26,5 +26,5 @@ public interface ProgramAvailmentMapper {
 	
 	@InheritInverseConfiguration
 	ProgramAvailment fromData(ProgramAvailmentData programAvailmentData);
-
+	
 }

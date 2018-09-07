@@ -9,7 +9,9 @@ import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
 
 import core.dto.PackageData;
+import core.dto.report.PackagePurchaseSummaryData;
 import core.model.pkg.Package;
+import core.model.pkg.PackagePurchaseSummary;
 
 @Mapper
 public interface PackageMapper {
@@ -24,5 +26,9 @@ public interface PackageMapper {
 	
 	@InheritInverseConfiguration
 	Package fromData(PackageData packageData);
+	
+	PackagePurchaseSummaryData summaryToData(PackagePurchaseSummary summary);
+
+	List<PackagePurchaseSummaryData> summariesToData(List<PackagePurchaseSummary> summaries);
 
 }
