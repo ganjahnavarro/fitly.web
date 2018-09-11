@@ -9,8 +9,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import core.Utility;
 import core.dto.PackageAvailmentData;
 import core.mapper.PackageAvailmentMapper;
 import core.model.member.Member;
@@ -33,9 +35,17 @@ public class PackageAvailmentController extends AbstractController {
 
 	private PackageAvailmentMapper MAPPER = PackageAvailmentMapper.INSTANCE;
 	
-	@RequestMapping(value = "/{memberId}", method = RequestMethod.GET)
-	public List<PackageAvailmentData> get(@PathVariable Long memberId) {
+	@RequestMapping(value = "/{memberId}/all", method = RequestMethod.GET)
+	public List<PackageAvailmentData> getAllForMember(@PathVariable Long memberId) {
 		return MAPPER.toData(packageAvailmentService.findMemberPackageAvailments(memberId));
+	}
+	
+	@RequestMapping(value = "/{memberId}/available", method = RequestMethod.GET)
+	public List<PackageAvailmentData> getAvailableForMember(@PathVariable Long memberId,
+			@RequestParam(value = "date", required = false) String dateParam) {
+		Date today = Utility.getCurrentDateWithoutTime();
+		Date date = dateParam != null ? Utility.parseDate(dateParam) : today;
+		return MAPPER.toData(packageAvailmentService.findAvailablePackageAvailments(memberId, date));
 	}
 	
 	@RequestMapping(value = "/", method = RequestMethod.POST)

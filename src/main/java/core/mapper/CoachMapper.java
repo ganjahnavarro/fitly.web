@@ -9,7 +9,9 @@ import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
 
 import core.dto.CoachData;
+import core.dto.report.CoachEnrolleesData;
 import core.model.coach.Coach;
+import core.model.coach.CoachEnrollees;
 
 @Mapper
 public interface CoachMapper {
@@ -25,5 +27,9 @@ public interface CoachMapper {
 	
 	@InheritInverseConfiguration
 	Coach fromData(CoachData coachData);
+	
+	CoachEnrolleesData enrolleesToData(CoachEnrollees coachEnrollees);
+
+	List<CoachEnrolleesData> enrolleesToData(List<CoachEnrollees> coachEnrollees);
 
 }

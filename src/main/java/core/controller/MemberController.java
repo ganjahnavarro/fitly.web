@@ -39,7 +39,7 @@ public class MemberController extends AbstractController {
 			@RequestParam(value = "pageOffset", required = false) Integer pageOffset,
 			@RequestParam(value = "orderedBy", required = false) String orderedBy,
 			@RequestParam(value = "type", required = false) String type) {
-		MemberType memberType =  MemberType.fromString(type);
+		MemberType memberType = MemberType.fromString(type);
 		return MAPPER.toData(memberService.findFilteredItems(memberType, filter, pageSize, pageOffset, orderedBy));
 	}
 	

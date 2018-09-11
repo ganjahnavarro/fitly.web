@@ -9,8 +9,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import core.Utility;
 import core.dto.ProgramAvailmentData;
 import core.mapper.ProgramAvailmentMapper;
 import core.model.member.Member;
@@ -32,11 +34,19 @@ public class ProgramAvailmentController extends AbstractController {
 
 	private ProgramAvailmentMapper MAPPER = ProgramAvailmentMapper.INSTANCE;
 	
-	@RequestMapping(value = "/{memberId}", method = RequestMethod.GET)
-	public List<ProgramAvailmentData> get(@PathVariable Long memberId) {
+	@RequestMapping(value = "/{memberId}/all", method = RequestMethod.GET)
+	public List<ProgramAvailmentData> getAllForMember(@PathVariable Long memberId) {
 		return MAPPER.toData(programAvailmentService.findMemberProgramAvailments(memberId));
 	}
 	
+	@RequestMapping(value = "/{memberId}/available", method = RequestMethod.GET)
+	public List<ProgramAvailmentData> getAvailableForMember(@PathVariable Long memberId,
+			@RequestParam(value = "date", required = false) String dateParam) {
+		Date today = Utility.getCurrentDateWithoutTime();
+		Date date = dateParam != null ? Utility.parseDate(dateParam) : today;
+		return MAPPER.toData(programAvailmentService.findAvailableProgramAvailments(memberId, date));
+	}
+
 	@RequestMapping(value = "/", method = RequestMethod.POST)
 	public ProgramAvailmentData create(@RequestBody ProgramAvailmentData programAvailmentData) {
 		ProgramAvailment programAvailment = MAPPER.fromData(programAvailmentData);

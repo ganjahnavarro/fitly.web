@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 
 import core.model.pkg.PackageAvailment;
 import core.model.pkg.PackageAvailmentRepository;
-import core.model.pkg.PackagePurchaseSummary;
+import core.report.PackagePurchaseSummary;
 import core.repository.AbstractRepository;
 
 @Service
@@ -23,6 +23,10 @@ public class PackageAvailmentService extends AbstractService {
 	@Override
 	public AbstractRepository getRepository() {
 		return repository;
+	}
+	
+	public PackageAvailment findByIdWithDetails(Long id) {
+		return repository.findByIdWithDetails(id);
 	}
 	
 	public List<PackageAvailment> findMemberPackageAvailments(Long memberId) {

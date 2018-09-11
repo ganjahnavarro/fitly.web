@@ -40,10 +40,7 @@ public class TimeEntryService extends AbstractService {
 				pageSize, pageOffset, orderBy);
 	}
 	
-	@Override
-	public IRecord save(IRecord record) {
-		TimeEntry timeEntry = (TimeEntry) record;
-		
+	public IRecord saveUsingAccessCard(TimeEntry timeEntry) {
 		Member member = memberService.findByAccessCardNo(timeEntry.getAccessCardNoUsed());
 		if (member == null) {
 			throw new IllegalArgumentException("Member not found.");
@@ -67,24 +64,32 @@ public class TimeEntryService extends AbstractService {
 			timeEntry.setProgramAvailment(programAvailment);
 			timeEntry.setPackageAvailment(packageAvailment);
 			
-			if (programAvailment != null) {
-				timeEntry.setCommission(programAvailment.getAvailedProgram().getCommission());
-			} else {
-				timeEntry.setCommission(packageAvailment.getAvailedPackage().getCommission());
-				
-				PackageAvailmentSession session = new PackageAvailmentSession();
-				session.setDate(timeEntry.getDate());
-				session.setPackageAvailment(timeEntry.getPackageAvailment());
-
-				packageAvailment.getSessions().add(session);
-				packageAvailment.setSessionsRemaining(packageAvailment.getSessionsRemaining() - 1);
-				super.update(packageAvailment);
-			}
-
-			return super.save(record);
+			return save(timeEntry);
 		}
-		return record;
+		return timeEntry;
 	}
+	
+	@Override
+	public IRecord save(IRecord record) {
+		TimeEntry timeEntry = (TimeEntry) record;
+		
+		if (timeEntry.getProgramAvailment() != null) {
+			timeEntry.setCommission(timeEntry.getProgramAvailment().getAvailedProgram().getCommission());
+		} else {
+			PackageAvailment packageAvailment = timeEntry.getPackageAvailment();
+			timeEntry.setCommission(packageAvailment.getAvailedPackage().getCommission());
+			
+			PackageAvailmentSession session = new PackageAvailmentSession();
+			session.setDate(timeEntry.getDate());
+			session.setPackageAvailment(timeEntry.getPackageAvailment());
+
+			packageAvailment.getSessions().add(session);
+			packageAvailment.setSessionsRemaining(packageAvailment.getSessionsRemaining() - 1);
+			super.update(packageAvailment);
+		}
+		return super.save(record);
+	}
+	
 	
 	private Availments getAvailmentsToUse(Member member) {
 		Availments availments = new Availments();

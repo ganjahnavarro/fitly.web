@@ -13,7 +13,13 @@ import org.springframework.web.bind.annotation.RestController;
 
 import core.dto.TimeEntryData;
 import core.mapper.TimeEntryMapper;
+import core.model.coach.Coach;
+import core.model.pkg.PackageAvailment;
+import core.model.program.ProgramAvailment;
 import core.model.timeentry.TimeEntry;
+import core.service.CoachService;
+import core.service.PackageAvailmentService;
+import core.service.ProgramAvailmentService;
 import core.service.TimeEntryService;
 
 @CrossOrigin
@@ -22,6 +28,10 @@ import core.service.TimeEntryService;
 public class TimeEntryController {
 
 	@Autowired private TimeEntryService timeEntryService;
+	
+	@Autowired private CoachService coachService;
+	@Autowired private ProgramAvailmentService programAvailmentService;
+	@Autowired private PackageAvailmentService packageAvailmentService;
 
 	private TimeEntryMapper MAPPER = TimeEntryMapper.INSTANCE;
 
@@ -39,18 +49,47 @@ public class TimeEntryController {
 	@RequestMapping(value = "/", method = RequestMethod.POST)
 	public TimeEntryData create(@RequestBody TimeEntryData timeEntryData) {
 		TimeEntry timeEntry = MAPPER.fromData(timeEntryData);
+		return MAPPER.toData((TimeEntry) timeEntryService.saveUsingAccessCard(timeEntry));
+	}
+	
+	@RequestMapping(value = "/manually", method = RequestMethod.POST)
+	public TimeEntryData createManually(@RequestBody TimeEntryData timeEntryData) {
+		TimeEntry timeEntry = MAPPER.fromData(timeEntryData);
+		setDefaultValues(timeEntry);
+		
 		return MAPPER.toData((TimeEntry) timeEntryService.save(timeEntry));
 	}
 	
 	@RequestMapping(value = "/", method = RequestMethod.PATCH)
 	public TimeEntryData update(@RequestBody TimeEntryData timeEntryData) {
 		TimeEntry timeEntry = MAPPER.fromData(timeEntryData);
+		setDefaultValues(timeEntry);
+		
 		return MAPPER.toData((TimeEntry) timeEntryService.update(timeEntry));
 	}
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
 	public void delete(@PathVariable Long id) {
 		timeEntryService.deleteRecordById(id);
+	}
+	
+	private void setDefaultValues(TimeEntry timeEntry) {
+		if (timeEntry.getCoachAssigned() != null) {
+			Coach coachAssigned = (Coach) coachService.findById(timeEntry.getCoachAssigned().getId());
+			timeEntry.setCoachAssigned(coachAssigned);
+		}
+		
+		if (timeEntry.getProgramAvailment() != null) {
+			ProgramAvailment programAvailment = (ProgramAvailment) programAvailmentService
+					.findById(timeEntry.getProgramAvailment().getId());
+			timeEntry.setProgramAvailment(programAvailment);
+		}
+		
+		if (timeEntry.getPackageAvailment() != null) {
+			PackageAvailment packageAvailment = (PackageAvailment) packageAvailmentService
+					.findByIdWithDetails(timeEntry.getPackageAvailment().getId());
+			timeEntry.setPackageAvailment(packageAvailment);
+		}
 	}
 
 }

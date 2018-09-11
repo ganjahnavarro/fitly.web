@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import core.dto.MembershipData;
 import core.mapper.MembershipMapper;
+import core.model.member.Member;
 import core.model.member.Membership;
 import core.service.MemberService;
 
@@ -30,6 +31,15 @@ public class MembershipController {
 	@RequestMapping(value = "/", method = RequestMethod.PATCH)
 	public MembershipData update(@RequestBody MembershipData membershipData) {
 		Membership membership = MAPPER.fromData(membershipData);
+		
+		if (membershipData.getAccessCardNo() != null) {
+			Member member = memberService.findByAccessCardNo(membershipData.getAccessCardNo());
+			
+			if (member != null && member.getId() != membership.getMember().getId()) {
+				throw new IllegalArgumentException("Access card is already registered to another member.");
+			}
+		}
+		
 		return MAPPER.toData((Membership) memberService.update(membership));
 	}
 
