@@ -25,8 +25,8 @@ public class MembershipService extends AbstractService {
 		return repository;
 	}
 	
-	public Membership findMembershipByMemberId(Long memberId) {
-		return repository.findMembershipByMemberId(memberId);
+	public List<Membership> findMembershipsByMemberId(Long memberId) {
+		return repository.findMembershipsByMemberId(memberId);
 	}
 	
 	public List<SalesReport> findSalesReport(Date startDate, Date endDate) {

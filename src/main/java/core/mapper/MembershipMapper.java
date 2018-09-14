@@ -11,7 +11,7 @@ import org.mapstruct.factory.Mappers;
 import core.dto.MembershipData;
 import core.model.member.Membership;
 
-@Mapper
+@Mapper(uses = { PromoMapper.class })
 public interface MembershipMapper {
 	
 	MembershipMapper INSTANCE = Mappers.getMapper(MembershipMapper.class);

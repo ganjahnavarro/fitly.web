@@ -14,6 +14,11 @@ public class MembershipData extends RecordData {
 	private String accessCardNo;
 	private BigDecimal amount;
 
+	private PromoData promo;
+	private BigDecimal discountAmount;
+
+	private BigDecimal discountedAmount;
+
 	public Member getMember() {
 		return member;
 	}
@@ -52,6 +57,30 @@ public class MembershipData extends RecordData {
 
 	public void setAmount(BigDecimal amount) {
 		this.amount = amount;
+	}
+
+	public PromoData getPromo() {
+		return promo;
+	}
+
+	public void setPromo(PromoData promo) {
+		this.promo = promo;
+	}
+
+	public BigDecimal getDiscountAmount() {
+		return discountAmount;
+	}
+
+	public void setDiscountAmount(BigDecimal discountAmount) {
+		this.discountAmount = discountAmount;
+	}
+
+	public BigDecimal getDiscountedAmount() {
+		return discountedAmount;
+	}
+
+	public void setDiscountedAmount(BigDecimal discountedAmount) {
+		this.discountedAmount = discountedAmount;
 	}
 
 }

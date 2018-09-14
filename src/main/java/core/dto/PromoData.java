@@ -6,7 +6,7 @@ public class PromoData extends RecordData {
 
 	private String code;
 	private String description;
-	private BigDecimal lessAmount;
+	private BigDecimal discountAmount;
 
 	public String getCode() {
 		return code;
@@ -24,12 +24,12 @@ public class PromoData extends RecordData {
 		this.description = description;
 	}
 
-	public BigDecimal getLessAmount() {
-		return lessAmount;
+	public BigDecimal getDiscountAmount() {
+		return discountAmount;
 	}
 
-	public void setLessAmount(BigDecimal lessAmount) {
-		this.lessAmount = lessAmount;
+	public void setDiscountAmount(BigDecimal discountAmount) {
+		this.discountAmount = discountAmount;
 	}
 
 }

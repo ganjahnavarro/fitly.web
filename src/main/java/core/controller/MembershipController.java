@@ -1,5 +1,7 @@
 package core.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -12,6 +14,7 @@ import core.dto.MembershipData;
 import core.mapper.MembershipMapper;
 import core.model.member.Member;
 import core.model.member.Membership;
+import core.model.promo.Promo;
 import core.service.AbstractService;
 import core.service.MemberService;
 import core.service.MembershipService;
@@ -27,8 +30,8 @@ public class MembershipController extends AbstractController {
 	private MembershipMapper MAPPER = MembershipMapper.INSTANCE;
 
 	@RequestMapping(value = "/member/{id}", method = RequestMethod.GET)
-	public MembershipData get(@PathVariable Long id) {
-		return MAPPER.toData(membershipService.findMembershipByMemberId(id));
+	public List<MembershipData> get(@PathVariable Long id) {
+		return MAPPER.toData(membershipService.findMembershipsByMemberId(id));
 	}
 
 	@RequestMapping(value = "/", method = RequestMethod.PATCH)
@@ -43,6 +46,13 @@ public class MembershipController extends AbstractController {
 			}
 		}
 		
+		if (membership.getPromo() != null) {
+			Promo promo = membership.getPromo();
+			membership.setDiscountAmount(promo.getDiscountAmount().min(membership.getAmount()));
+		} else {
+			membership.setDiscountAmount(null);
+		}
+
 		return MAPPER.toData((Membership) memberService.update(membership));
 	}
 	
