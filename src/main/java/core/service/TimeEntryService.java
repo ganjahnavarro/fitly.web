@@ -82,10 +82,12 @@ public class TimeEntryService extends AbstractService {
 			PackageAvailmentSession session = new PackageAvailmentSession();
 			session.setDate(timeEntry.getDate());
 			session.setPackageAvailment(timeEntry.getPackageAvailment());
+			session = (PackageAvailmentSession) savePlainObject(session);
 
-			packageAvailment.getSessions().add(session);
 			packageAvailment.setSessionsRemaining(packageAvailment.getSessionsRemaining() - 1);
 			super.update(packageAvailment);
+			
+			timeEntry.setSession(session);
 		} else {
 			throw new IllegalStateException("No program/package is availed by member valid by that date.");
 		}
@@ -119,6 +121,23 @@ public class TimeEntryService extends AbstractService {
 		}
 
 		return availments;
+	}
+	
+	@Override
+	public void delete(IRecord record) {
+		TimeEntry timeEntry = (TimeEntry) record;
+		
+		if (timeEntry.getPackageAvailment() != null && timeEntry.getSession() != null) {
+			PackageAvailment packageAvailment = (PackageAvailment) packageAvailmentService
+					.findByIdWithDetails(timeEntry.getPackageAvailment().getId());
+			
+			packageAvailment.getSessions().remove(timeEntry.getSession());
+			int sessionsRemaining = packageAvailment.getSessionsCount() - packageAvailment.getSessions().size();
+			packageAvailment.setSessionsRemaining(sessionsRemaining);
+			super.update(packageAvailment);
+		}
+			
+		super.delete(record);
 	}
 	
 	private class Availments {
