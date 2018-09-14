@@ -75,7 +75,7 @@ public class TimeEntryService extends AbstractService {
 		
 		if (timeEntry.getProgramAvailment() != null) {
 			timeEntry.setCommission(timeEntry.getProgramAvailment().getAvailedProgram().getCommission());
-		} else {
+		} else if (timeEntry.getPackageAvailment() != null) {
 			PackageAvailment packageAvailment = timeEntry.getPackageAvailment();
 			timeEntry.setCommission(packageAvailment.getAvailedPackage().getCommission());
 			
@@ -86,6 +86,8 @@ public class TimeEntryService extends AbstractService {
 			packageAvailment.getSessions().add(session);
 			packageAvailment.setSessionsRemaining(packageAvailment.getSessionsRemaining() - 1);
 			super.update(packageAvailment);
+		} else {
+			throw new IllegalStateException("No program/package is availed by member valid by that date.");
 		}
 		return super.save(record);
 	}

@@ -14,12 +14,13 @@ import org.springframework.web.bind.annotation.RestController;
 import core.dto.ProgramData;
 import core.mapper.ProgramMapper;
 import core.model.program.Program;
+import core.service.AbstractService;
 import core.service.ProgramService;
 
 @CrossOrigin
 @RestController
 @RequestMapping("/program")
-public class ProgramController {
+public class ProgramController extends AbstractController {
 
 	@Autowired private ProgramService programService;
 
@@ -47,7 +48,12 @@ public class ProgramController {
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
 	public void delete(@PathVariable Long id) {
-		programService.deleteRecordById(id);
+		super.delete(id);
+	}
+	
+	@Override
+	protected AbstractService getService() {
+		return programService;
 	}
 
 }

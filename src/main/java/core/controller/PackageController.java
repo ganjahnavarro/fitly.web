@@ -15,12 +15,13 @@ import core.model.pkg.Package;
 import core.dto.PackageData;
 import core.enums.Duration;
 import core.mapper.PackageMapper;
+import core.service.AbstractService;
 import core.service.PackageService;
 
 @CrossOrigin
 @RestController
 @RequestMapping("/package")
-public class PackageController {
+public class PackageController extends AbstractController {
 
 	@Autowired private PackageService packageService;
 
@@ -64,6 +65,11 @@ public class PackageController {
 		if (Duration.ENDLESS.equals(packageData.getDuration())) {
 			packageData.setDurationCount(-1);
 		}
+	}
+	
+	@Override
+	protected AbstractService getService() {
+		return packageService;
 	}
 
 }

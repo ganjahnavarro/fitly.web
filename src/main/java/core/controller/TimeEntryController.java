@@ -17,6 +17,7 @@ import core.model.coach.Coach;
 import core.model.pkg.PackageAvailment;
 import core.model.program.ProgramAvailment;
 import core.model.timeentry.TimeEntry;
+import core.service.AbstractService;
 import core.service.CoachService;
 import core.service.PackageAvailmentService;
 import core.service.ProgramAvailmentService;
@@ -25,7 +26,7 @@ import core.service.TimeEntryService;
 @CrossOrigin
 @RestController
 @RequestMapping("/timeentry")
-public class TimeEntryController {
+public class TimeEntryController extends AbstractController {
 
 	@Autowired private TimeEntryService timeEntryService;
 	
@@ -70,7 +71,7 @@ public class TimeEntryController {
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
 	public void delete(@PathVariable Long id) {
-		timeEntryService.deleteRecordById(id);
+		super.delete(id);
 	}
 	
 	private void setDefaultValues(TimeEntry timeEntry) {
@@ -90,6 +91,11 @@ public class TimeEntryController {
 					.findByIdWithDetails(timeEntry.getPackageAvailment().getId());
 			timeEntry.setPackageAvailment(packageAvailment);
 		}
+	}
+	
+	@Override
+	protected AbstractService getService() {
+		return timeEntryService;
 	}
 
 }

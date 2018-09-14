@@ -18,18 +18,18 @@ import core.dto.report.ProgramPurchaseSummaryData;
 import core.dto.report.SalesReportData;
 import core.mapper.ReportsMapper;
 import core.report.SalesReport;
-import core.service.MemberService;
+import core.service.MembershipService;
 import core.service.PackageAvailmentService;
 import core.service.ProgramAvailmentService;
 
 @CrossOrigin
 @RestController
 @RequestMapping("/report")
-public class ReportsController {
+public class ReportsController extends AbstractController {
 	
 	@Autowired private ProgramAvailmentService programAvailmentService;
 	@Autowired private PackageAvailmentService packageAvailmentService;
-	@Autowired private MemberService memberService;
+	@Autowired private MembershipService membershipService;
 	
 	private ReportsMapper REPORTS_MAPPER = ReportsMapper.INSTANCE;
 	
@@ -51,7 +51,7 @@ public class ReportsController {
 		Date endDate = Utility.parseDate(endDateParam);
 		
 		List<SalesReport> salesReports = new ArrayList<>();
-		salesReports.addAll(memberService.findSalesReport(startDate, endDate));
+		salesReports.addAll(membershipService.findSalesReport(startDate, endDate));
 
 		salesReports.sort(Comparator.comparing(SalesReport::getDate));
 		return REPORTS_MAPPER.toSalesReportsData(salesReports);

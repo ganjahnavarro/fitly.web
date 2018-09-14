@@ -15,12 +15,13 @@ import core.Validator;
 import core.dto.CoachData;
 import core.mapper.CoachMapper;
 import core.model.coach.Coach;
+import core.service.AbstractService;
 import core.service.CoachService;
 
 @CrossOrigin
 @RestController
 @RequestMapping("/coach")
-public class CoachController {
+public class CoachController extends AbstractController {
 
 	@Autowired private CoachService coachService;
 	@Autowired private Validator validator;
@@ -61,6 +62,11 @@ public class CoachController {
 		Runnable validateBirthDate = () -> validator.validateDate(coachData.getBirthDate(), "Invalid birth date format.");
 
 		validator.aggregate(validateEmail, validateBirthDate);
+	}
+	
+	@Override
+	protected AbstractService getService() {
+		return coachService;
 	}
 
 }

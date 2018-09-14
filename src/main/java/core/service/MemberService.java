@@ -2,7 +2,6 @@ package core.service;
 
 import java.math.BigDecimal;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -17,7 +16,6 @@ import core.model.IRecord;
 import core.model.member.Member;
 import core.model.member.MemberRepository;
 import core.model.member.Membership;
-import core.report.SalesReport;
 import core.repository.AbstractRepository;
 
 @Service
@@ -68,16 +66,8 @@ public class MemberService extends AbstractService {
 		return repository.findByAccessCardNo(accessCardNo);
 	}
 	
-	public Membership findMembershipByMemberId(Long memberId) {
-		return repository.findMembershipByMemberId(memberId);
-	}
-	
 	public Long findCount(MemberType type) {
 		return repository.findCount(type);
 	}
 	
-	public List<SalesReport> findSalesReport(Date startDate, Date endDate) {
-		return repository.findSalesReport(startDate, endDate);
-	}
-
 }

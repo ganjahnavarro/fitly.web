@@ -12,20 +12,23 @@ import core.dto.MembershipData;
 import core.mapper.MembershipMapper;
 import core.model.member.Member;
 import core.model.member.Membership;
+import core.service.AbstractService;
 import core.service.MemberService;
+import core.service.MembershipService;
 
 @CrossOrigin
 @RestController
 @RequestMapping("/membership")
-public class MembershipController {
+public class MembershipController extends AbstractController {
 
+	@Autowired private MembershipService membershipService;
 	@Autowired private MemberService memberService;
 
 	private MembershipMapper MAPPER = MembershipMapper.INSTANCE;
 
 	@RequestMapping(value = "/member/{id}", method = RequestMethod.GET)
 	public MembershipData get(@PathVariable Long id) {
-		return MAPPER.toData(memberService.findMembershipByMemberId(id));
+		return MAPPER.toData(membershipService.findMembershipByMemberId(id));
 	}
 
 	@RequestMapping(value = "/", method = RequestMethod.PATCH)
@@ -41,6 +44,16 @@ public class MembershipController {
 		}
 		
 		return MAPPER.toData((Membership) memberService.update(membership));
+	}
+	
+	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+	public void delete(@PathVariable Long id) {
+		super.delete(id);
+	}
+	
+	@Override
+	protected AbstractService getService() {
+		return membershipService;
 	}
 
 }
