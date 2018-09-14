@@ -21,6 +21,7 @@ import core.report.SalesReport;
 import core.service.MembershipService;
 import core.service.PackageAvailmentService;
 import core.service.ProgramAvailmentService;
+import core.service.TimeEntryService;
 
 @CrossOrigin
 @RestController
@@ -30,6 +31,7 @@ public class ReportsController extends AbstractController {
 	@Autowired private ProgramAvailmentService programAvailmentService;
 	@Autowired private PackageAvailmentService packageAvailmentService;
 	@Autowired private MembershipService membershipService;
+	@Autowired private TimeEntryService timeEntryService;
 	
 	private ReportsMapper REPORTS_MAPPER = ReportsMapper.INSTANCE;
 	
@@ -52,6 +54,9 @@ public class ReportsController extends AbstractController {
 		
 		List<SalesReport> salesReports = new ArrayList<>();
 		salesReports.addAll(membershipService.findSalesReport(startDate, endDate));
+		salesReports.addAll(programAvailmentService.findSalesReport(startDate, endDate));
+		salesReports.addAll(packageAvailmentService.findSalesReport(startDate, endDate));
+		salesReports.addAll(timeEntryService.findSalesReport(startDate, endDate));
 
 		salesReports.sort(Comparator.comparing(SalesReport::getDate));
 		return REPORTS_MAPPER.toSalesReportsData(salesReports);

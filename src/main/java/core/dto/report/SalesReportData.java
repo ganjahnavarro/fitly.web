@@ -1,30 +1,27 @@
 package core.dto.report;
 
 import java.math.BigDecimal;
-import java.util.Date;
-
-import core.dto.PersonData;
 
 public class SalesReportData {
 
-	private Date date;
-	private PersonData person;
+	private String date;
+	private String person;
 	private String description;
 	private BigDecimal amount;
 
-	public Date getDate() {
+	public String getDate() {
 		return date;
 	}
 
-	public void setDate(Date date) {
+	public void setDate(String date) {
 		this.date = date;
 	}
 
-	public PersonData getPerson() {
+	public String getPerson() {
 		return person;
 	}
 
-	public void setPerson(PersonData person) {
+	public void setPerson(String person) {
 		this.person = person;
 	}
 

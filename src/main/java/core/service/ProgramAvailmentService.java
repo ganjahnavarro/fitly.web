@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import core.model.program.ProgramAvailment;
 import core.model.program.ProgramAvailmentRepository;
 import core.report.ProgramPurchaseSummary;
+import core.report.SalesReport;
 import core.repository.AbstractRepository;
 
 @Service
@@ -35,6 +36,10 @@ public class ProgramAvailmentService extends AbstractService {
 	
 	public List<ProgramPurchaseSummary> findProgramPurchaseSummaries() {
 		return repository.findProgramPurchaseSummaries();
+	}
+	
+	public List<SalesReport> findSalesReport(Date startDate, Date endDate) {
+		return repository.findSalesReport(startDate, endDate);
 	}
 	
 }

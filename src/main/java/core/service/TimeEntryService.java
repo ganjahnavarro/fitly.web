@@ -16,6 +16,7 @@ import core.model.pkg.PackageAvailmentSession;
 import core.model.program.ProgramAvailment;
 import core.model.timeentry.TimeEntry;
 import core.model.timeentry.TimeEntryRepository;
+import core.report.SalesReport;
 import core.repository.AbstractRepository;
 
 @Service
@@ -138,6 +139,10 @@ public class TimeEntryService extends AbstractService {
 		}
 			
 		super.delete(record);
+	}
+	
+	public List<SalesReport> findSalesReport(Date startDate, Date endDate) {
+		return repository.findSalesReport(startDate, endDate);
 	}
 	
 	private class Availments {

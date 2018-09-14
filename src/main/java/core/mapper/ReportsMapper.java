@@ -2,6 +2,7 @@ package core.mapper;
 
 import java.util.List;
 
+import org.mapstruct.IterableMapping;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 
@@ -12,7 +13,7 @@ import core.report.PackagePurchaseSummary;
 import core.report.ProgramPurchaseSummary;
 import core.report.SalesReport;
 
-@Mapper(uses = { ProgramMapper.class, PackageMapper.class, PersonMapper.class })
+@Mapper(uses = { ProgramMapper.class, PackageMapper.class })
 public interface ReportsMapper {
 
 	ReportsMapper INSTANCE = Mappers.getMapper(ReportsMapper.class);
@@ -24,6 +25,8 @@ public interface ReportsMapper {
 	List<PackagePurchaseSummaryData> packagePurchaseSummariesToData(List<PackagePurchaseSummary> summaries);
 	
 	SalesReportData toSalesReportData(SalesReport salesReport);
+
+	@IterableMapping(dateFormat = "MM/dd/yyyy HH:mm")
 	List<SalesReportData> toSalesReportsData(List<SalesReport> salesReports);
 	
 }
