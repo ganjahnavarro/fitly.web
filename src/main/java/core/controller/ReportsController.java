@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import core.Utility;
+import core.dto.report.CoachEnrolleesData;
 import core.dto.report.PackagePurchaseSummaryData;
 import core.dto.report.ProgramPurchaseSummaryData;
 import core.dto.report.SalesReportData;
@@ -60,6 +61,16 @@ public class ReportsController extends AbstractController {
 
 		salesReports.sort(Comparator.comparing(SalesReport::getDate));
 		return REPORTS_MAPPER.toSalesReportsData(salesReports);
+	}
+	
+	@RequestMapping(value = "/coach/enrollees", method = RequestMethod.GET)
+	public List<CoachEnrolleesData> getCoachEnrollees(
+			@RequestParam(value = "startDate", required = false) String startDateParam,
+			@RequestParam(value = "endDate", required = false) String endDateParam) {
+		Date startDate = Utility.parseDate(startDateParam);
+		Date endDate = Utility.parseDate(endDateParam);
+
+		return REPORTS_MAPPER.enrolleesToData(timeEntryService.findCoachEnrollees(startDate, endDate));
 	}
 	
 }

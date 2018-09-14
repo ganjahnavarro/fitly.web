@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import core.Utility;
 import core.model.IRecord;
+import core.model.coach.CoachEnrollees;
 import core.model.member.Member;
 import core.model.pkg.PackageAvailment;
 import core.model.pkg.PackageAvailmentSession;
@@ -145,6 +146,10 @@ public class TimeEntryService extends AbstractService {
 		return repository.findSalesReport(startDate, endDate);
 	}
 	
+	public List<CoachEnrollees> findCoachEnrollees(Date startDate, Date endDate) {
+		return repository.findCoachEnrollees(startDate, endDate);
+	}
+
 	private class Availments {
 
 		ProgramAvailment programAvailment;
